@@ -15,4 +15,23 @@ app.use(bodyParser.urlencoded({
 }));
 
 
+app.use('/', expressJWT({ secret: process.env.SECRET })
+    .unless({
+        path: [
+            { url: '/brand/login', methods: ['POST'] },
+            { url: '/brand/register', methods: ['POST'] },
+            { url: '/space/login', methods: ['POST'] },
+            { url: '/space/register', methods: ['POST'] }
+        ]
+    }));
+
+
+app.use(function (err, req, res, next) {
+    if (err.name === 'UnauthorizedError') {
+        return res.status(401).json({ message: 'Unauthorized request' });
+    }
+    next();
+});
+
+
 module.exports = app;
