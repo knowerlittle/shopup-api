@@ -3,14 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=production node ./node_modules/.bin/pm2 start ./bin/www  -i max --attach",
-    "dev": "cross-env NODE_ENV=development node ./node_modules/.bin/pm2 start ./bin/www --watch",
+    "start": "node ./node_modules/.bin/pm2 start ./bin/www  -i max --attach",
+    "dev": "node ./node_modules/.bin/pm2 start ./bin/www --name popinApi --watch",
     "stop": "node ./node_modules/.bin/pm2  kill",
     "monit": "node ./node_modules/.bin/pm2  monit"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
     "chalk": "^2.3.0",
+    "cors": "^2.8.4",
     "cross-env": "^5.1.1",
     "debug": "~2.6.9",
     "dotenv": "^4.0.0",
@@ -18,7 +19,14 @@
     "express-jwt": "^5.3.0",
     "helmet": "^3.9.0",
     "ip": "^1.1.5",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.4",
     "morgan": "~1.9.0",
-    "pm2": "^2.7.2"
+    "ngrok": "^2.2.23",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-twitter": "^1.0.4",
+    "pm2": "^2.7.2",
+    "request-promise": "^4.2.2"
   }
 }
