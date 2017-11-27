@@ -1,27 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const { facebook } = require('./controller')
+const {
+    getFacebookAuth,
+    receiveFacebookAuth,
+    receiveFacebookUser,
+    getGoogleAuth,
+    receiveGoogleAuth,
+    receiveGoogleUser
+} = require('./controller')
 const passport = require('passport');
 
-router.get('/facebook',
-    passport.authenticate('facebook', { display: 'touch', scope: ['email', 'public_profile']}));
+router.get('/facebook', getFacebookAuth);
 
-router.get('/facebook/callback', passport.authenticate('facebook', { session: false, failureRedirect: '/auth/hi' }),
-    function (req, res) {
-        res.json({user: req.user});
-    });
+router.get('/facebook/callback', receiveFacebookAuth, receiveFacebookUser);
 
-router.get('/twitter', passport.authenticate('twitter'));
+router.get('/google', getGoogleAuth);
 
-router.get('/twitter/callback', passport.authenticate('twitter', { session: false, failureRedirect: '/auth/hi' }),
-    function (req, res) {
-        console.log(req.user)
-        res.json({ user: req.user });
-    });
+router.get('/google/callback', receiveGoogleAuth, receiveGoogleUser)
 
-router.get('error', (req, res) => {
-    console.log(require)
-    res.json(req.body)
-});
+
+router.get('/error', (req, res) => handleAuthError);
 
 module.exports = router;

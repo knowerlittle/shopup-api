@@ -6,7 +6,7 @@ const expressJWT = require("express-jwt");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const helmet = require('helmet');
-const cors = require('cors')
+// const cors = require('cors')
 const app = express();
 
 const authRoute = require('../components/authentication/routes')
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(passport.initialize());
-app.use(cors);
+// app.use(cors);
 app.use('/auth', authRoute);
 
 app.use('/', expressJWT({ 
