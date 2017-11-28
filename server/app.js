@@ -12,7 +12,7 @@ const app = express();
 const authRoute = require('../components/authentication/routes')
 
 require('dotenv').config();
-require("../config/passport")(passport);
+require("../components/authentication/passport")(passport);
 
 mongoose.connect('mongodb://localhost/popin', {
     useMongoClient: true

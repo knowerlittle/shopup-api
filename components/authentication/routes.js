@@ -3,20 +3,19 @@ const router = express.Router();
 const {
     getFacebookAuth,
     receiveFacebookAuth,
-    receiveFacebookUser,
     getGoogleAuth,
     receiveGoogleAuth,
-    receiveGoogleUser
+    sendToken
 } = require('./controller')
 const passport = require('passport');
 
 router.get('/facebook', getFacebookAuth);
 
-router.get('/facebook/callback', receiveFacebookAuth, receiveFacebookUser);
+router.get('/facebook/callback', receiveFacebookAuth, sendToken);
 
 router.get('/google', getGoogleAuth);
 
-router.get('/google/callback', receiveGoogleAuth, receiveGoogleUser)
+router.get('/google/callback', receiveGoogleAuth, sendToken)
 
 
 router.get('/error', (req, res) => handleAuthError);

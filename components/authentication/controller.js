@@ -13,13 +13,6 @@ const receiveFacebookAuth = passport.authenticate('facebook', {
     failureRedirect: '/auth/error'
 });
 
-const receiveFacebookUser = (req, res, next) => {
-    console.log(req.user)
-    res.json({
-        user: req.user
-    });
-}
-
 const getGoogleAuth = passport.authenticate('google', {
     scope: ['email', 'profile']
 });
@@ -29,11 +22,14 @@ const receiveGoogleAuth = passport.authenticate('google', {
     failureRedirect: '/auth/error'
 })
 
-const receiveGoogleUser = (req, res) => {
+const sendToken = async(req, res, next) => {
+   const token = await jwt.sign({
+        data: req.user
+    }, process.env.SECRET, { expiresIn: '1h' });
     res.send({
-        user: req.user
-    })
-};
+        token: token
+    });
+}
 
 const handleAuthError = (req, res) => {
     console.log(req.body)
@@ -43,8 +39,7 @@ const handleAuthError = (req, res) => {
 module.exports = {
     getFacebookAuth,
     receiveFacebookAuth,
-    receiveFacebookUser,
     getGoogleAuth,
     receiveGoogleAuth,
-    receiveGoogleUser
+    sendToken
 }
