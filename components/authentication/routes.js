@@ -17,7 +17,6 @@ router.get('/google', getGoogleAuth);
 
 router.get('/google/callback', receiveGoogleAuth, sendToken)
 
-
 router.get('/error', (req, res) => handleAuthError);
 
 module.exports = router;

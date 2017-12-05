@@ -18,7 +18,7 @@ const processFacebookUser = async(req, token, refreshToken, profile, done) => {
                 'email': profile.emails[0].value
             }]
         })
-        if (!user) {
+        if (!!user) {
             let newUser = await createUser({
                 email: profile.emails[0].value,
                 familyName: profile.name.familyName,
@@ -48,7 +48,7 @@ const processFacebookUser = async(req, token, refreshToken, profile, done) => {
 const processGoogleUser = async(req, token, refreshToken, profile, done) => {
     try {
         let user = await User.findOne();
-        if (!user) {
+        if (!!user) {
             let newUser = await createUser({
                 email: profile.emails[0].value,
                 familyName: profile.name.familyName,
