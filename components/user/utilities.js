@@ -18,7 +18,7 @@ const processFacebookUser = async(req, token, refreshToken, profile, done) => {
                 'email': profile.emails[0].value
             }]
         })
-        if (!!user) {
+        if (user === null) {
             let newUser = await createUser({
                 email: profile.emails[0].value,
                 familyName: profile.name.familyName,
@@ -27,6 +27,7 @@ const processFacebookUser = async(req, token, refreshToken, profile, done) => {
                     id: profile.id,
                 }
             });
+            new User(user).save();
             done(null, newUser);
         } else {
             if (user.facebook.id) {
@@ -47,8 +48,14 @@ const processFacebookUser = async(req, token, refreshToken, profile, done) => {
 
 const processGoogleUser = async(req, token, refreshToken, profile, done) => {
     try {
-        let user = await User.findOne();
-        if (!!user) {
+        let user = await findUser({
+            $or: [{
+                'google.id': profile.id
+            }, {
+                'email': profile.emails[0].value
+            }]
+        })
+        if (user === null) {
             let newUser = await createUser({
                 email: profile.emails[0].value,
                 familyName: profile.name.familyName,
