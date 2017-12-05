@@ -10,7 +10,8 @@ module.exports = function (passport) {
         clientID: process.env.FACEBOOK_APP_ID,
         clientSecret: process.env.FACEBOOK_APP_SECRET,
         callbackURL: `${config.url}/auth/facebook/callback`,
-        profileFields: ['id', 'displayName', 'name', 'emails']
+        profileFields: ['id', 'displayName', 'name', 'emails'],
+        passReqToCallback: true
     }, processFacebookUser));
 
     passport.use(new GoogleStrategy({
@@ -19,4 +20,5 @@ module.exports = function (passport) {
         callbackURL: `${config.url}/auth/google/callback`,
         passReqToCallback: true
     }, processGoogleUser));
+
 };

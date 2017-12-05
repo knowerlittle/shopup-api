@@ -9,7 +9,7 @@ const updateUser = (id, user) => User.findByIdAndUpdate({
 });
 const findUser = (user) => User.findOne(user);
 
-const processFacebookUser = async(token, refreshToken, profile, done) => {
+const processFacebookUser = async(req, token, refreshToken, profile, done) => {
     try {
         let user = await findUser({
             $or: [{

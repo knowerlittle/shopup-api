@@ -1,7 +1,6 @@
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const rp = require('request-promise');
-
+const config = require('../../config/config');
 
 const getFacebookAuth = passport.authenticate('facebook', {
     display: 'touch',
@@ -23,12 +22,14 @@ const receiveGoogleAuth = passport.authenticate('google', {
 })
 
 const sendToken = async(req, res, next) => {
-   const token = await jwt.sign({
+    // console.log(req)
+    const token = await jwt.sign({
         data: req.user
-    }, process.env.SECRET, { expiresIn: '1h' });
-    res.send({
-        token: token
+    }, process.env.SECRET, {
+        expiresIn: '1h'
     });
+    res.setHeader('x-auth-token', token);
+    res.status(200).send(req.auth);
 }
 
 const handleAuthError = (req, res) => {
