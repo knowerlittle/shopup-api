@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./node_modules/.bin/pm2 start ./bin/www  -i max --attach",
-    "dev": "node ./node_modules/.bin/pm2 start ./bin/www --name popinApi --watch",
-    "stop": "node ./node_modules/.bin/pm2  kill",
-    "monit": "node ./node_modules/.bin/pm2  monit"
+    "start": "pm2 start ./bin/www  --name popinApi",
+    "restart": "pm2 restart all",
+    "dev": "pm2 start ./bin/www --name popinApi --watch",
+    "stop": "pm2  kill",
+    "monit": "pm2  monit"
   },
   "dependencies": {
     "body-parser": "~1.18.2",

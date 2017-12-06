@@ -22,14 +22,12 @@ const receiveGoogleAuth = passport.authenticate('google', {
 })
 
 const sendToken = async(req, res, next) => {
-    // console.log(req)
     const token = await jwt.sign({
         data: req.user
     }, process.env.SECRET, {
         expiresIn: '1h'
     });
-    res.setHeader('x-auth-token', token);
-    res.status(200).send(req.auth);
+    res.status(200).json({token: token});
 }
 
 const handleAuthError = (req, res) => {

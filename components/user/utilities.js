@@ -18,7 +18,7 @@ const processFacebookUser = async(req, token, refreshToken, profile, done) => {
                 'email': profile.emails[0].value
             }]
         })
-        if (user === null) {
+        if (user === null ) {
             let newUser = await createUser({
                 email: profile.emails[0].value,
                 familyName: profile.name.familyName,
@@ -27,7 +27,6 @@ const processFacebookUser = async(req, token, refreshToken, profile, done) => {
                     id: profile.id,
                 }
             });
-            new User(user).save();
             done(null, newUser);
         } else {
             if (user.facebook.id) {
