@@ -50,19 +50,19 @@ jobs:
 
 workflows:
   version: 2
-    staging:
-      jobs:
-        - build
-            filters:
-              branches:
-                only: staging
-        - test
-            requires: build
-            filters:
-              branches:
-                only: staging
-        - deploy
-            requires: test
-            filters:
-              branches:
-                only: staging
+  staging:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: staging
+      - test:
+          requires: build
+          filters:
+            branches:
+              only: staging
+      - deploy:
+          requires: test
+          filters:
+            branches:
+              only: staging
