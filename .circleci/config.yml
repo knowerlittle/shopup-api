@@ -42,6 +42,27 @@ jobs:
           name: Running tests
           command: npm test
 
-  deploy: 
+  deploy_staing: 
     steps:
-      - 
+      - run:  
+          name: digital-ocean deployment
+          command: ssh -o "StrictHostKeyChecking no" deploy@138.68.164.152 "cd ~/API; git pull origin staging; npm install; npm run start"
+
+workflows:
+  version: 2
+    staging:
+      jobs:
+        - build
+            filters:
+              branches:
+                only: staging
+        - test
+            requires: build
+            filters:
+              branches:
+                only: staging
+        - deploy
+            requires: test
+            filters:
+              branches:
+                only: staging
