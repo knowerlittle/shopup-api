@@ -52,17 +52,14 @@ workflows:
   version: 2
   staging:
     jobs:
-      - build:
-          filters:
-            branches:
-              only: staging
+      - build
       - test:
-          requires: build
-          filters:
-            branches:
-              only: staging
+          requires:
+            - build
       - deploy:
-          requires: test
+          requires:
+            - test
           filters:
             branches:
-              only: staging
+              only: 
+                - staging
