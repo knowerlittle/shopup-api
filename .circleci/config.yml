@@ -35,3 +35,8 @@ jobs:
         
       # run tests!
       - run: yarn test
+
+      - deploy: 
+          branch: staging
+          name: digital-ocean
+          command: ssh -o "StrictHostKeyChecking no" deploy@138.68.164.152 "git pull; npm install; npm run start"
