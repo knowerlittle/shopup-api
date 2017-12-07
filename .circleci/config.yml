@@ -13,10 +13,6 @@ jobs:
     steps:
       - checkout
 
-      - run: 
-          name: Updating npm 
-          command: 'sudo npm install -g npm@latest'
-
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
