@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  build_and_test:
     working_directory: ~/repo
 
     docker:
@@ -27,17 +27,11 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
-        
-  test: 
-    docker:
-      - image: circleci/node:8.9.1  
-    
-    steps:
-      - checkout
+
       - run: 
           name: Running tests
           command: yarn test
-
+        
   deploy_staging: 
     docker:
       - image: circleci/node:8.9.1
@@ -51,13 +45,10 @@ workflows:
   version: 2
   staging:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - build_and_test
       - deploy_staging:
           requires:
-            - test
+            - build_and_test
           filters:
             branches:
               only: 
