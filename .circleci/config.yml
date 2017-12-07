@@ -42,7 +42,10 @@ jobs:
           name: Running tests
           command: npm test
 
-  deploy_staing: 
+  deploy_staging: 
+    docker:
+      - image: circleci/node:8.9.1
+      
     steps:
       - run:  
           name: digital-ocean deployment
@@ -56,7 +59,7 @@ workflows:
       - test:
           requires:
             - build
-      - deploy:
+      - deploy_staging:
           requires:
             - test
           filters:
