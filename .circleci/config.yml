@@ -1,0 +1,55 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build_and_test:
+    working_directory: ~/repo
+
+    docker:
+      - image: circleci/node:8.9.1
+      
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          name: Installing packages
+          command: yarn install
+
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+      - run: 
+          name: Running tests
+          command: yarn test
+        
+  deploy_staging: 
+    docker:
+      - image: circleci/node:8.9.1
+
+    steps:
+      - run:  
+          name: digital-ocean deployment
+          command: ssh -o "StrictHostKeyChecking no" deploy@138.68.164.152 "cd ~/API; git pull origin staging; npm install; npm run restart"
+
+workflows:
+  version: 2
+  staging:
+    jobs:
+      - build_and_test
+      - deploy_staging:
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              only: 
+                - staging
