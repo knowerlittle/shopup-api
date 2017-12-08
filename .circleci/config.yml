@@ -45,7 +45,11 @@ workflows:
   version: 2
   staging:
     jobs:
-      - build_and_test
+      - build_and_test:
+          filters:
+            branches:
+              only:
+                - staging
       - deploy_staging:
           requires:
             - build_and_test
