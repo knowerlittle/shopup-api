@@ -8,7 +8,7 @@
     "dev": "pm2 start ./bin/www --name popinApi --watch",
     "stop": "pm2  kill",
     "monit": "pm2  monit",
-    "test": "node ./node_modules/jest/bin/jest --forceExit"
+    "test": "jest --forceExit"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
