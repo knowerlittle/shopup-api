@@ -4,7 +4,7 @@ const {
     socialLogin
 } = require('./controller')
 
-router.get('/auth/facebook', socialLogin);
-router.get('/auth/google', socialLogin);
+router.post('/auth/facebook', socialLogin);
+router.post('/auth/google', socialLogin);
 
 module.exports = router;
