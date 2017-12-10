@@ -1,44 +1,25 @@
-const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
+const processFacebookUser = require('./facebook.js')
+const processGoogleUser = require('./google.js')
 
-const getFacebookAuth = passport.authenticate('facebook', {
-    display: 'touch',
-    scope: ['email', 'public_profile']
-});
-
-const receiveFacebookAuth = passport.authenticate('facebook', {
-    session: false,
-    failureRedirect: '/auth/error'
-});
-
-const getGoogleAuth = passport.authenticate('google', {
-    scope: ['email', 'profile']
-});
-
-const receiveGoogleAuth = passport.authenticate('google', {
-    session: false,
-    failureRedirect: '/auth/error'
-})
-
-const sendToken = async(req, res, next) => {
-    const token = await jwt.sign({
-        data: req.user
-    }, process.env.SECRET, {
-        expiresIn: '1h'
+const socialLogin = async(req, res, next) => {
+    const profile = req.body.profile;
+    const user = profile.provider === 'facebook' ? await processFacebookUser(profile) : await processGoogleUser(profile);
+    const token = createToken(user);
+    res.status(200).json({
+        token: token
     });
-    res.status(200).json({token: token});
 }
 
-const handleAuthError = (req, res) => {
-    console.log(req.body)
-    res.json(req.body)
-}
+const createToken = (user) => jwt.sign({
+    data: req.user._id
+}, process.env.SECRET, {
+    expiresIn: '1h'
+});
+
+
 
 module.exports = {
-    getFacebookAuth,
-    receiveFacebookAuth,
-    getGoogleAuth,
-    receiveGoogleAuth,
-    sendToken
+    socialLogin,
 }

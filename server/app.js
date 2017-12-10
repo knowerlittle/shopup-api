@@ -5,14 +5,12 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const expressJWT = require("express-jwt");
 const mongoose = require("mongoose");
-const passport = require("passport");
 const helmet = require('helmet');
 const app = express();
 
 const authRoute = require('../components/authentication/routes')
-require("../components/authentication/passport")(passport);
 
-mongoose.connect('mongodb://localhost/popin', {
+mongoose.connect(process.env.MONGODB_URI, {
     useMongoClient: true
 });
 mongoose.Promise = global.Promise;
@@ -22,17 +20,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
-app.use(passport.initialize());
+
 app.use('/auth', authRoute);
 
-app.use('/', expressJWT({ 
+app.use('/', expressJWT({
         secret: process.env.SECRET
     })
     .unless({
         path: [{
-                url: new RegExp('/auth/*/', 'i')
-            }
-        ]
+            url: new RegExp('/auth/*/', 'i')
+        }]
     }));
 
 
