@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const { facebookLogin, googleLogin } = require('./controller');
+const router = require('express').Router();
+const { facebookLogin } = require('./controller');
 
 router.post('/facebook', facebookLogin);
-router.post('/google', googleLogin);
+// router.post('/google', googleLogin);
 
 module.exports = router;
