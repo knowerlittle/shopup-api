@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
-const config = require('../../config/config');
-const processFacebookUser = require('./facebook.js');
-const processGoogleUser = require('./google.js');
+const config = require(__root + 'config/config');
+const processFacebookUser = require(__root + 'components/authentication/facebook.js');
+const processGoogleUser = require(__root + 'components/authentication/google.js');
 
 const createToken = async user => {};
 
@@ -26,6 +26,7 @@ const facebookLogin = async (req, res) => {
       res.status(404).json({ message: err });
     });
 };
+
 const googleLogin = (req, res) => {
   const profile = req.body;
   processGoogleUser(profile)

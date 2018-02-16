@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const expressJWT = require('express-jwt');
@@ -8,14 +7,19 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const app = express();
+const path = require('path');
 
-const authRoute = require('../components/authentication/routes');
+global.__root = path.resolve('.') + '/';
+
+const authRoute = require(__root + 'components/authentication/routes');
 
 mongoose.connect(process.env.MONGODB_URI, {
   useMongoClient: true,
 });
 mongoose.Promise = global.Promise;
+
 console.log(process.env.MONGODB_URI);
+
 app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json());
