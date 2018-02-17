@@ -3,12 +3,12 @@
 /**
  * Module dependencies.
  */
-
-
-const app = require('../server/app');
+const path = require('path');
+global.__root = path.resolve('.') + '/';
+const app = require(__root + 'server/app');
 const debug = require('debug')('popin-api:server');
 const http = require('http');
-const logger = require('../server/logger')
+const logger = require(__root + 'server/logger')
 const customHost = process.env.HOST;
 
 const isDev = process.env.NODE_ENV !== 'production';
