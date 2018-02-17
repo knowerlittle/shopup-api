@@ -32,7 +32,8 @@
     "moduleDirectories": [
       "node_modules",
       "../"
-    ]
+    ],
+    "verbose": true
   },
   "devDependencies": {
     "jsonwebtoken": "^8.1.1",
