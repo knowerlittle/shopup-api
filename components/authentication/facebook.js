@@ -1,4 +1,4 @@
-const User = require('../user/modal');
+const User = require(__root + 'components/user/model');
 
 const findFacebookUser = profile =>
   new Promise((resolve, reject) => {

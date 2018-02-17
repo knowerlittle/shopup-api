@@ -1,4 +1,4 @@
-const User = require('./modal');
+const User = require(__root + 'components/user/model');
 
 const getUser = (req, res) => {
     const user = User.findById(req.params.id).exec()

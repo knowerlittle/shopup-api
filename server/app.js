@@ -1,20 +1,34 @@
 require('dotenv').config();
-const app = require('express')();
+const path = require('path');
+global.__root = path.resolve('.') + '/';
+const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const expressJWT = require('express-jwt');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
+const app = express();
 
 const authRoute = require(__root + 'components/authentication/routes');
+const userRoute = require(__root + 'components/user/routes');
 
-mongoose.connect(process.env.MONGODB_URI, {
+const databaseOptions = {
+  test: process.env.MONGODB_TEST, 
+  development: process.env.MONGODB_LOCAL,
+};
+
+const databaseUri = databaseOptions[process.env.NODE_ENV];
+
+mongoose.connect(databaseUri, {
   useMongoClient: true,
 });
+
 mongoose.Promise = global.Promise;
 
-console.log(process.env.MONGODB_URI);
+console.log('databaseUri', databaseUri);
+
+app.get('/hello', (req, res) => res.send('Hello World!'));
 
 app.use(cors());
 app.use(helmet());
@@ -24,7 +38,9 @@ app.use(
     extended: false,
   }),
 );
-app.use('/auth', authRoute);
+
+app.use(authRoute);
+app.use(userRoute);
 
 app.use(
   '/',
