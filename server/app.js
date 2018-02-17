@@ -5,20 +5,11 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const expressJWT = require('express-jwt');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const app = express();
-const database = require(__root + 'config/db');
 const routes = require(__root + 'server/routes');
-
-const databaseUri = database[process.env.NODE_ENV];
-
-mongoose.connect(databaseUri, {
-  useMongoClient: true,
-});
-
-mongoose.Promise = global.Promise;
+require(__root + 'config/db');
 
 app.use(cors());
 app.use(helmet());
@@ -29,10 +20,7 @@ app.use(
   }),
 );
 
-app.use(...routes);
-
 app.use(
-  '/',
   expressJWT({
     secret: process.env.SECRET,
   }).unless({
@@ -43,6 +31,8 @@ app.use(
     ],
   }),
 );
+
+app.use(...routes);
 
 app.use(function(err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
