@@ -26,11 +26,9 @@ describe('Integration: User', () => {
         email: 'narp@gmail.com',
     });
     user.save();
-    // const token = createToken(user);
 
     const response = await request(app)
       .get(`/user/${user.id}`)
-      // .set('Authorization', 'Bearer ' + token);
 
     await expect(response.statusCode).toBe(401);
     await User.remove(user);
