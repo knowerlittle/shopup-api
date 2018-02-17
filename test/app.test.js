@@ -16,8 +16,8 @@ describe('Root Path', () => {
 		const response = await request(app)
 			.get('/');
 
-		expect(response.statusCode).toBe(401);
-		// await dropDB();
+		await dropDB();
+		await expect(response.statusCode).toBe(401);
 	});
 })
 
@@ -34,7 +34,8 @@ describe('Return User', () => {
 			.get(`/user/${user.id}`)
 			.set('Authorization', 'Bearer ' + token);
 		
-		expect(JSON.parse(response.text)["_id"]).toBe(user.id);
+		await dropDB();
+		await expect(JSON.parse(response.text)["_id"]).toBe(user.id);
 	});
 })
 
