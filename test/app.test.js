@@ -7,20 +7,13 @@ beforeEach(() => {
 	return mongoose.connection.dropDatabase();
 });
 
-describe('Test the root path', () => {
+describe('Root Path', () => {
 	test('It should be an Unauthorized request', async () => {
 		const response = await request(app).get('/');
 		expect(response.statusCode).toBe(401);
 	});
 })
 
-describe('Hello Path', () => {
-	test('It should return Hello World!', async () => {
-		const response = await request(app).get('/hello');
-		console.log('r', response.text);
-		expect(response.text).toBe('Hello World!');
-	});
-})
 
 describe('Return User', () => {
 	test('It should return Hello World!', async () => {
@@ -29,9 +22,7 @@ describe('Return User', () => {
 				email: 'narp@gmail.com',
 		});
 		user.save();
-		console.log('a', user.id);
 		const response = await request(app).get(`/user/${user.id}`);
-		console.log('rrr', response.body);
 	});
 })
 

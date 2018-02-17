@@ -30,6 +30,12 @@
     "supertest": "^3.0.0"
   },
   "jest": {
-    "moduleDirectories" : ["node_modules", "../"]
+    "moduleDirectories": [
+      "node_modules",
+      "../"
+    ]
+  },
+  "devDependencies": {
+    "node-mongo-seeds": "^2.3.2"
   }
 }

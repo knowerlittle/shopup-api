@@ -1829,6 +1829,12 @@ json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
+json2mongo@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/json2mongo/-/json2mongo-2.0.0.tgz#b4ff128bbc4ce64f7ac4f8b8bf46260632af29b8"
+  dependencies:
+    mongodb "^2.2.11"
+
 json5@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/json5/-/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
@@ -1995,6 +2001,10 @@ lodash.set@^4.0.0:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/lodash.set/-/lodash.set-4.3.2.tgz#d8757b1da807dde24816b0d6a84bea1a76230b23"
 
+lodash@^3.1.0:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
+
 lodash@^4.14.0, lodash@^4.17.4:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
@@ -2123,12 +2133,27 @@ mongodb-core@2.1.17:
     bson "~1.0.4"
     require_optional "~1.0.0"
 
+mongodb-core@2.1.18:
+  version "2.1.18"
+  resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-2.1.18.tgz#4c46139bdf3a1f032ded91db49f38eec01659050"
+  dependencies:
+    bson "~1.0.4"
+    require_optional "~1.0.0"
+
 mongodb@2.2.33, mongodb@^2.2.10:
   version "2.2.33"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-2.2.33.tgz#b537c471d34a6651b48f36fdbf29750340e08b50"
   dependencies:
     es6-promise "3.2.1"
     mongodb-core "2.1.17"
+    readable-stream "2.2.7"
+
+mongodb@^2.2.11, mongodb@~2.2.23:
+  version "2.2.34"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-2.2.34.tgz#a34f59bbeb61754aec432de72c3fe21526a44c1a"
+  dependencies:
+    es6-promise "3.2.1"
+    mongodb-core "2.1.18"
     readable-stream "2.2.7"
 
 mongoose@^4.13.4:
@@ -2222,6 +2247,17 @@ nocache@2.0.0:
 node-int64@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/node-int64/-/node-int64-0.4.0.tgz#87a9065cdb355d3182d8f94ce11188b825c68a3b"
+
+node-mongo-seeds@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/node-mongo-seeds/-/node-mongo-seeds-2.3.2.tgz#db0d19366d398420217228e9990514f03f4268ff"
+  dependencies:
+    errno "^0.1.4"
+    json2mongo "^2.0.0"
+    lodash "^3.1.0"
+    mongodb "~2.2.23"
+    optimist "^0.6.1"
+    q "^1.4.1"
 
 node-notifier@^5.0.2:
   version "5.1.2"
@@ -2548,7 +2584,7 @@ punycode@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
 
-q@^1.1.2:
+q@^1.1.2, q@^1.4.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
 
