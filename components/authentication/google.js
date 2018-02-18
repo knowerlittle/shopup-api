@@ -1,4 +1,4 @@
-const User = require('../user/modal');
+const User = require(__root + 'components/user/model');
 
 const findGoogleUser = profile =>
   new Promise((resolve, reject) => {
@@ -60,13 +60,27 @@ const attachGoogle = async (user, profile) => {
 const hasAttachedAccount = async (user, profile) =>
   user.google.id ? user : await attachGoogle(user, profile);
 
-module.exports = async profile => {
-  return findGoogleUser(profile)
-    .then(
-      user =>
-        user === null
+ module.exports = profile =>
+  new Promise((resolve, reject) => {
+    findGoogleUser(profile)
+      .then(user => {
+        return user === null
           ? createGoogleUser(profile)
-          : hasAttachedAccount(user, profile),
-    )
-    .then(user => user);
-};
+          : hasAttachedAccount(user, profile);
+      })
+      .then(user => resolve(user))
+      .catch(err => {
+        reject(err);
+      });
+  });  
+
+// module.exports = async profile => {
+//   return findGoogleUser(profile)
+//     .then(
+//       user =>
+//         user === null
+//           ? createGoogleUser(profile)
+//           : hasAttachedAccount(user, profile),
+//     )
+//     .then(user => user);
+// };
