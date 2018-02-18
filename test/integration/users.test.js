@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('server/app')
+const app = require('server/app');
 const User = require(__root + 'components/user/model');
 const createToken = require(__root + 'test/utils/createToken');
 

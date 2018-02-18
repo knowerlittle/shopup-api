@@ -26,8 +26,8 @@ const createFacebookUser = profile =>
   new Promise((resolve, reject) => {
     const user = new User({
       email: profile.email,
-      familyName: profile.firstName,
-      givenName: profile.lastName,
+      givenName: profile.firstName,
+      familyName: profile.lastName,
       facebook: {
         id: profile.id,
       },
