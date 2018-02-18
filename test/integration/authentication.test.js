@@ -20,7 +20,7 @@ describe('Social Authentication', () => {
     await User.remove(user);
   });
 
-  test('POST /auth/facebook : if a user with the same facebook id is present it returns the JWT Token', async () => {
+  test('POST /auth/facebook : if a user with the same facebook id is exists it returns the JWT Token', async () => {
     const mockUser = Object.assign({}, mockUserFromFacebook);
     const user = await new User({
       email: mockUser.email,
