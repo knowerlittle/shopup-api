@@ -26,7 +26,7 @@ app.use(
   }).unless({
     path: [
       {
-        url: new RegExp('/auth/*/', 'i'),
+        url: new RegExp('/auth', 'i'),
       },
     ],
   }),

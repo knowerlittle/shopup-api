@@ -1,6 +1,6 @@
 const User = require(__root + 'components/user/model');
 
-const findFacebookUser = ({ 
+const findUser = ({ 
   id, 
   email, 
   provider 
@@ -30,7 +30,7 @@ const findFacebookUser = ({
   });
 }
 
-const createFacebookUser = ({ 
+const createUser = ({ 
   id, 
   email, 
   provider,
@@ -53,7 +53,7 @@ const createFacebookUser = ({
     });
   });
 
-const attachFacebook = async ({ _id }, {id, provider}) => {
+const attachSocialAccount = async ({ _id }, {id, provider}) => {
   const updatedUser = await User.findByIdAndUpdate(
     {
       _id,
@@ -71,14 +71,14 @@ const attachFacebook = async ({ _id }, {id, provider}) => {
 };
 
 const hasAttachedAccount = async (user, profile) =>
-  user[profile.provider].id ? user : await attachFacebook(user, profile);
+  user[profile.provider].id ? user : await attachSocialAccount(user, profile);
 
 module.exports = profile =>
   new Promise((resolve, reject) => {
-    findFacebookUser(profile)
+    findUser(profile)
       .then(user => {
         return user === null
-          ? createFacebookUser(profile)
+          ? createUser(profile)
           : hasAttachedAccount(user, profile);
       })
       .then(user => resolve(user))

@@ -1,9 +1,7 @@
 const express = require('express');
-const { facebookLogin } = require(__root + 'components/authentication/controller');
-const { googleLogin } = require(__root + 'components/authentication/controller');
+const socialLogin = require(__root + 'components/authentication/controller');
 const router = express.Router();
 
-router.post('/auth/facebook', facebookLogin);
-router.post('/auth/google', googleLogin);
+router.post('/auth', socialLogin);
 
 module.exports = router;
