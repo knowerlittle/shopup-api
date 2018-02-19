@@ -1,5 +1,5 @@
-const createToken = require(__root + 'components/authentication/createToken');
-const processSocialLogin = require(__root + 'components/authentication/socialLogin.js');
+const createToken = require(__root + 'services/authentication/createToken');
+const processSocialLogin = require(__root + 'services/authentication/socialLogin.js');
 
 const socialLogin = async ({body: profile}, res) => {
   try {

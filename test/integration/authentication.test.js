@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('server/app');
 const mockUserFromFacebook = require(__root + 'test/fixtures/mockUserFromFacebook');
-const User = require(__root + 'components/user/model');
+const User = require(__root + 'services/user/model');
 
 const JWT = require('jsonwebtoken')
 describe('Social Authentication', () => {

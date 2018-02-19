@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('server/app');
-const User = require(__root + 'components/user/model');
+const User = require(__root + 'services/user/model');
 const createToken = require(__root + 'test/utils/createToken');
 
 describe('Integration: User', () => {
