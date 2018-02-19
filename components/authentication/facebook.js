@@ -1,15 +1,22 @@
 const User = require(__root + 'components/user/model');
 
-const findFacebookUser = profile =>
-  new Promise((resolve, reject) => {
+const findFacebookUser = ({ 
+  id, 
+  email, 
+  provider 
+}) => {
+  console.log('provider', provider);
+  return new Promise((resolve, reject) => {
     User.findOne(
       {
         $or: [
           {
-            'facebook.id': profile.id,
+            [provider] : {
+              id,
+            }
           },
           {
-            email: profile.email,
+            email,
           },
         ],
       },
@@ -21,15 +28,21 @@ const findFacebookUser = profile =>
       },
     );
   });
+}
 
-const createFacebookUser = profile =>
+const createFacebookUser = ({ 
+  id, 
+  email, 
+  provider,
+  firstName : givenName, 
+  lastName : familyName }) =>
   new Promise((resolve, reject) => {
     const user = new User({
-      email: profile.email,
-      givenName: profile.firstName,
-      familyName: profile.lastName,
-      facebook: {
-        id: profile.id,
+      email,
+      givenName,
+      familyName,
+      [provider]: {
+        id,
       },
     });
     user.save(err => {
@@ -40,14 +53,14 @@ const createFacebookUser = profile =>
     });
   });
 
-const attachFacebook = async (user, profile) => {
+const attachFacebook = async ({ _id }, {id, provider}) => {
   const updatedUser = await User.findByIdAndUpdate(
     {
-      _id: user._id,
+      _id,
     },
     {
-      facebook: {
-        id: profile.id,
+      [provider]: {
+        id,
       },
     },
     {
@@ -58,7 +71,7 @@ const attachFacebook = async (user, profile) => {
 };
 
 const hasAttachedAccount = async (user, profile) =>
-  user.facebook.id ? user : await attachFacebook(user, profile);
+  user[profile.provider].id ? user : await attachFacebook(user, profile);
 
 module.exports = profile =>
   new Promise((resolve, reject) => {
