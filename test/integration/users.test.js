@@ -6,8 +6,8 @@ const createToken = require(__root + 'test/utils/createToken');
 describe('Integration: User', () => {
   test('GET /user/:id with JWT token should return correct user', async () => {
     const user = await new User({
-        givenName: 'narp',
-        email: 'narp@gmail.com',
+        givenName: 'test',
+        email: 'test@test.com',
     });
     user.save();
     const token = createToken(user);
@@ -22,8 +22,8 @@ describe('Integration: User', () => {
 
   test('GET /user/:id without a JWT token be an Unauthorized Request', async () => {
     const user = await new User({
-        givenName: 'narp',
-        email: 'narp@gmail.com',
+        givenName: 'test',
+        email: 'test2@test.com',
     });
     user.save();
 

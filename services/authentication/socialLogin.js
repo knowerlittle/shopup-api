@@ -5,7 +5,6 @@ const findUser = ({
   email, 
   provider 
 }) => {
-  console.log('provider', provider);
   return new Promise((resolve, reject) => {
     User.findOne(
       {
