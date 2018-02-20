@@ -1,9 +1,9 @@
 const request = require('supertest');
-const app = require('../server/app')
+const app = require('server/app')
 
-describe('Test the root path', () => {
-    test('It should be an Unauthorized request', async () => {
-        const response = await request(app).get('/');
-        expect(response.statusCode).toBe(401);
-    });
-})
+describe('Root Path', () => {
+	test('It should be an Unauthorized Request', async () => {
+		const response = await request(app).get('/');
+		await expect(response.statusCode).toBe(401);
+	});
+});
