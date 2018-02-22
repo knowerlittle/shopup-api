@@ -1,4 +1,4 @@
-// const request = require('supertest');
+const request = require('supertest');
 // const app = require('server/app');
 // const User = require(__root + 'services/user/model');
 // const createToken = require(__root + 'test/utils/createToken');
@@ -34,3 +34,9 @@
 //     await User.remove(user);
 //   });
 // });
+
+describe('true', () => {
+  test('true', () => {
+    expect(true).toBe(true);
+  })
+});

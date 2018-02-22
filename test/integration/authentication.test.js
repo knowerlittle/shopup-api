@@ -1,4 +1,4 @@
-// const request = require('supertest');
+const request = require('supertest');
 // const app = require('server/app');
 // const mockFacebookUser = require(__root + 'test/fixtures/mockFacebookUser');
 // const mockGoogleUser = require(__root + 'test/fixtures/mockGoogleUser');
@@ -77,3 +77,9 @@
 //     await User.remove(user);
 //   });
 // });
+
+describe('true', () => {
+  test('true', () => {
+    expect(true).toBe(true);
+  })
+});
