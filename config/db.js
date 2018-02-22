@@ -2,7 +2,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 
 const databaseOptions = {
-  test: process.env.MONGOD_TEST, 
+  test: process.env.MONGODB_TEST, 
   development: process.env.MONGODB,
 };
 
