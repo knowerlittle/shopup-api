@@ -8,9 +8,11 @@ const databaseOptions = {
 
 const databaseUri = databaseOptions[process.env.NODE_ENV];
 
+mongoose.set('bufferCommands', false);
+
 mongoose.connect(databaseUri, {
   useMongoClient: true,
 });
 
-mongoose.Promise = global.Promise;
 
+mongoose.Promise = global.Promise;

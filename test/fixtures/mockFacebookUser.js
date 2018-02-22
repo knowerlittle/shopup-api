@@ -1,6 +1,6 @@
 const mockFacebookUser = {
   id: '11111',
-  email: 'test@test.com',
+  email: 'user@social.com',
   firstName: 'Test',
   lastName: 'Person',
   name: 'Test Person',

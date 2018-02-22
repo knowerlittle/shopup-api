@@ -1,6 +1,6 @@
 const mockGoogleUser = {
   id: '22222',
-  email: 'test@test.com',
+  email: 'user@social.com',
   firstName: 'Test',
   lastName: 'Person',
   name: 'Test Person',

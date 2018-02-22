@@ -11,7 +11,7 @@ const app = express();
 const routes = require(__root + 'server/routes');
 require(__root + 'config/db');
 
-app.use(cors());
+app.use(cors({credentials: true, origin: true}));
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(
