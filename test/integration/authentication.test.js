@@ -3,6 +3,10 @@ const app = require('server/app');
 const mockFacebookUser = require(__root + 'test/fixtures/mockFacebookUser');
 const mockGoogleUser = require(__root + 'test/fixtures/mockGoogleUser');
 const User = require(__root + 'services/user/model');
+const dropDB = require(__root + 'test/utils/dropDB');
+
+const collection = 'users';
+
 
 describe('Social Authentication', () => {
   test('POST /auth : if no user is present it creates a new user with the Social Provider id attached, and returns JWT Token', async done => {
@@ -16,7 +20,7 @@ describe('Social Authentication', () => {
 
     await expect(responseToken).toBeTruthy()
     await expect(mockFacebookUser.id).toEqual(user.facebook.id);
-    await User.remove(user);
+    await dropDB(collection)
     await done();
   });
 
@@ -35,7 +39,7 @@ describe('Social Authentication', () => {
     const responseToken = JSON.parse(response.text)["token"];
 
     await expect(responseToken).toBeTruthy();
-    await User.remove(user);
+    await dropDB(collection)
     await done();
   });
 
@@ -56,7 +60,7 @@ describe('Social Authentication', () => {
     const user = userArray[0];
 
     await expect(mockGoogleUser.id).toEqual(user.google.id);
-    await User.remove(user);
+    await dropDB(collection)
     await done();
   });
 
@@ -77,7 +81,7 @@ describe('Social Authentication', () => {
     const user = userArray[0];
 
     await expect(mockFacebookUser.id).toEqual(user.facebook.id);
-    await User.remove(user);
+    await dropDB(collection)
     await done();
   });
 });

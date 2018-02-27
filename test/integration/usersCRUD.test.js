@@ -2,6 +2,9 @@ const request = require('supertest');
 const app = require('server/app');
 const User = require(__root + 'services/user/model');
 const createToken = require(__root + 'test/utils/createToken');
+const dropDB = require(__root + 'test/utils/dropDB');
+
+const collection = 'users';
 
 describe('Integration: User', () => {
   test('GET /user/:id with JWT token should return correct user', async done => {
@@ -18,7 +21,7 @@ describe('Integration: User', () => {
       .set('Authorization', 'Bearer ' + token);
 
     await expect(JSON.parse(response.text)["_id"]).toBe(user.id);
-    await User.remove(user);
+    await dropDB(collection);
     await done();
   });
 
@@ -33,7 +36,7 @@ describe('Integration: User', () => {
       .get(`/user/${user.id}`)
 
     await expect(response.statusCode).toBe(401);
-    await User.remove(user);
+    await dropDB(collection);
     await done();
   });
 });
