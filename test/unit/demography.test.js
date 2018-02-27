@@ -1,18 +1,19 @@
 const request = require('supertest');
 const app = require('server/app');
-const Demographic = require(__root + 'services/demographic/model');
+const Demography = require(__root + 'services/demography/model');
 const dropDB = require(__root + 'test/utils/dropDB');
 
 const collection = 'demographics';
 
 describe('Unit: Demographic', () => {
   test('has correct fields', async done => {
-    const demographic = await new Demographic({
+    const demography = await new Demography({
       name: 'hipsters',
     });
-    demographic.save();
-    await expect(demographic.name).toEqual('hipsters');
+    await demography.save();
+
     await dropDB(collection);
+    await expect(demography.name).toEqual('hipsters');
     await done();
   });
 });

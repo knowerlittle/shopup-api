@@ -11,10 +11,11 @@ describe('Unit: Category', () => {
       name: 'test cat',
       description: 'test category',
     });
-    category.save();
+    await category.save();
+
+    await dropDB(collection);
     await expect(category.name).toEqual('test cat');
     await expect(category.description).toEqual('test category');
-    await dropDB(collection);
     await done();
   });
 });
