@@ -4,14 +4,14 @@ const categorySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   description: {
     type: String,
-    required: true
+    required: true,
   },
 }, {
-    timestamps: true
+    timestamps: true,
 });
 
 module.exports = mongoose.model('Category', categorySchema);

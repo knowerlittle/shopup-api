@@ -28,9 +28,7 @@ app.use(
       {
         url: new RegExp('/auth', 'i'),
       },
-      {
-        url: new RegExp('/signup', 'i'),
-      }
+      '/signup',
     ],
   }),
 );
