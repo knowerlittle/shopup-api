@@ -6,7 +6,7 @@ const dropDB = require(__root + 'test/utils/dropDB');
 const collection = 'categories';
 
 describe('Unit: Category', () => {
-  test('has correct fields', async done => {
+  test('has correct required fields', async done => {
     const category = await new Category({
       name: 'test cat',
       description: 'test category',

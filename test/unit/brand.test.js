@@ -4,14 +4,14 @@ const dropDB = require(__root + 'test/utils/dropDB');
 const Brand = require(__root + 'services/brand/model');
 const brand1 = require(__root + 'test/fixtures/brand1');
 
-const collection = 'brands';
+const BRANDS = 'brands';
 
 describe('Unit: Brand', () => {
-  test('has corret fields', async done => {
+  test('has corret required fields', async done => {
     const brand = await new Brand(brand1);
     await brand.save();
 
-    await dropDB(collection);
+    await dropDB(BRANDS);
     await expect(brand.name).toEqual('test brand');
     await expect(brand.description).toEqual('this is a good brand');
     await expect(brand.users.id).toEqual(123);

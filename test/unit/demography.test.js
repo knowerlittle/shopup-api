@@ -6,7 +6,7 @@ const dropDB = require(__root + 'test/utils/dropDB');
 const collection = 'demographics';
 
 describe('Unit: Demographic', () => {
-  test('has correct fields', async done => {
+  test('has correct required fields', async done => {
     const demography = await new Demography({
       name: 'hipsters',
     });
