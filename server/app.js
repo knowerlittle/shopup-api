@@ -25,9 +25,7 @@ app.use(
     secret: process.env.SECRET,
   }).unless({
     path: [
-      {
-        url: new RegExp('/auth', 'i'),
-      },
+      '/auth',
       '/signup',
     ],
   }),

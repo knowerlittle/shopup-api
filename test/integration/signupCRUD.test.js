@@ -17,7 +17,7 @@ const USERS = 'users';
 const BRANDS = 'brands';
 
 describe('Integration: Signup', () => {
-  test('GET /signup : returns both category and demographics', async done => {
+  test('GET /signup : returns both category and demographics for use in the signup process', async done => {
     const cat1 = await new Category(category1);
     const cat2 = await new Category(category2); 
     const demo1 = await new Demographic(demography1); 
