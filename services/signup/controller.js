@@ -20,14 +20,19 @@ const getInfo = async (req, res) => {
 
 const attachBrandToUser = async ({ userId, brandId }) => {
   // console.log('user', userId, 'brand', brandId);
-  return await User.findById(userId).exec()
-    .then((user) => {
-      user.set({ brand: brandId });
-      return user.save((err, updatedUser) => {
-        if (err) return console.log('error 2', err);
-        return updatedUser;
-    })
-  });
+  const user = User.findById(userId).exec();
+  user.set({ brand: brandId });
+  await user.save();
+  return user;
+
+  // return await User.findById(userId).exec()
+  //   .then((user) => {
+  //     user.set({ brand: brandId });
+  //     return user.save((err, updatedUser) => {
+  //       if (err) return console.log('error 2', err);
+  //       return updatedUser;
+  //   })
+  // });
 
 };
 
