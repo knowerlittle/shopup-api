@@ -39,7 +39,7 @@ describe('Integration: Signup', () => {
     await done();
   });
 
-  test('POST /signup/brand : creates a brand and attaches the requested user ID from the JWT token', async done => {
+  test('POST /signup/brand : creates a brand, attaches user ID to it, also attaches brandID to correspending user, returns updated user', async done => {
     const user = await new User({
       givenName: 'test1',
       email: 'test1@test.com',
@@ -53,11 +53,12 @@ describe('Integration: Signup', () => {
       .send(brand1)
       .set('Authorization', 'Bearer ' + token);
 
-    const responseBrandUserId = response.body.users[0];
+    const updatedUser = response.body;
+    console.log('updated', updatedUser);
 
     await dropDB(USERS);
     await dropDB(BRANDS);
-    await expect(responseBrandUserId).toEqual(user.id);
+    await expect(updatedUser.brand[0].name).toEqual('test brand');
     await done();
   });
 
