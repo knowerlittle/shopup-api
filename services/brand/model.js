@@ -24,8 +24,8 @@ const brandSchema = new mongoose.Schema({
     type: Object,
   },
   users: {
-    type: Object,
-    required: true,
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
   },
   categories: {
     type: Array,

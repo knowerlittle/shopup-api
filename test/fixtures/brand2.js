@@ -1,5 +1,5 @@
-const brand1 = {
-  name: 'test brand',
+const brand2 = {
+  name: 'testing brand',
   description: 'this is a good brand',
   categories: ['121', '111', '131'],
   demographics: ['1', '2', '3'],
@@ -10,4 +10,4 @@ const brand1 = {
   },
 };
 
-module.exports = brand1;
+module.exports = brand2;

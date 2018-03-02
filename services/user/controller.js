@@ -1,4 +1,5 @@
 const User = require(__root + 'services/user/model');
+const Brand = require(__root + 'services/brand/model');
 
 const getUser = (req, res) => {
     const user = User.findById(req.params.id).exec()
@@ -12,6 +13,4 @@ const getUser = (req, res) => {
         });
 }
 
-module.exports = {
-    getUser,
-}
+module.exports = getUser;
