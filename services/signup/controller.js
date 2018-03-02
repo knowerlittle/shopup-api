@@ -19,21 +19,10 @@ const getInfo = async (req, res) => {
 };
 
 const attachBrandToUser = async ({ userId, brandId }) => {
-  // console.log('user', userId, 'brand', brandId);
-  const user = User.findById(userId).exec();
+  const user = await User.findById(userId).exec();
   user.set({ brand: brandId });
   await user.save();
   return user;
-
-  // return await User.findById(userId).exec()
-  //   .then((user) => {
-  //     user.set({ brand: brandId });
-  //     return user.save((err, updatedUser) => {
-  //       if (err) return console.log('error 2', err);
-  //       return updatedUser;
-  //   })
-  // });
-
 };
 
 const createBrandAndAttachUser = async ({ 
@@ -41,14 +30,14 @@ const createBrandAndAttachUser = async ({
   body: brandInfo
 }, res) => {
   try {
-    const brandInfoWithUser = Object.assign({}, brandInfo, { users: [user.id]});
-    const brand = new Brand(brandInfoWithUser);
+    const brandInfoWithUserId = Object.assign({}, brandInfo, { users: user.id });
+    const brand = new Brand(brandInfoWithUserId);
     await brand.save()
-
-    // console.log('brandid', brand)
     const updatedUser = await attachBrandToUser({ userId: user.id, brandId: brand.id });
-    console.log('ua', updatedUser);
-    res.status(200).json(updatedUser);
+    res.status(200).json({ 
+      user: updatedUser,
+      brand
+    });
   } catch (err) {
     res.status(404).json(errorResponse(err));
   }

@@ -2,6 +2,7 @@ const request = require('supertest');
 const app = require('server/app');
 const Category = require(__root + 'services/category/model');
 const Demographic = require(__root + 'services/demography/model');
+const Brand = require(__root + 'services/demography/model');
 const User = require(__root + 'services/user/model');
 const createToken = require(__root + 'test/utils/createToken');
 const dropDB = require(__root + 'test/utils/dropDB');
@@ -39,7 +40,7 @@ describe('Integration: Signup', () => {
     await done();
   });
 
-  test('POST /signup/brand : creates a brand, attaches user ID to it, also attaches brandID to correspending user, returns updated user', async done => {
+  test('POST /signup/brand : creates a brand; attaches user Id to brand; attaches brand Id to user; returns updated user and brand', async done => {
     const user = await new User({
       givenName: 'test1',
       email: 'test1@test.com',
@@ -53,12 +54,12 @@ describe('Integration: Signup', () => {
       .send(brand1)
       .set('Authorization', 'Bearer ' + token);
 
-    const updatedUser = response.body;
-    console.log('updated', updatedUser);
+    const { user : responseUser, brand : responseBrand } = response.body;
 
     await dropDB(USERS);
     await dropDB(BRANDS);
-    await expect(updatedUser.brand[0].name).toEqual('test brand');
+    await expect(responseUser.brand.id).toEqual(responseBrand.id);
+    await expect(responseBrand.users.id).toEqual(responseUser.id);
     await done();
   });
 
