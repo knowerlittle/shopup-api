@@ -41,7 +41,7 @@ describe('Integration: Signup', () => {
     await done();
   });
 
-  test('POST /signup/brand : creates a brand; attaches user Id to brand; attaches brand Id to user; returns updated user and brand', async done => {
+  test('POST /brand : creates a brand; attaches user Id to brand; attaches brand Id to user; returns updated user and brand', async done => {
     const user = await new User({
       givenName: 'test1',
       email: 'test1@test.com',
@@ -51,7 +51,7 @@ describe('Integration: Signup', () => {
     const token = await createToken(user);
 
     const response = await request(app)
-      .post('/signup/brand')
+      .post('/brand')
       .send(brand1)
       .set('Authorization', 'Bearer ' + token);
 

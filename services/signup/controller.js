@@ -25,15 +25,12 @@ const attachBrandToUser = async ({ userId, brandId }) => {
   return user;
 };
 
-const createBrandAndAttachUser = async ({ 
-  user, 
-  body: brandInfo
-}, res) => {
+const createBrandAndAttachUser = async (req, res) => {
   try {
-    const brandInfoWithUserId = Object.assign({}, brandInfo, { users: user.id });
+    const brandInfoWithUserId = Object.assign({}, req.body, { users: req.user.id });
     const brand = new Brand(brandInfoWithUserId);
     await brand.save()
-    const updatedUser = await attachBrandToUser({ userId: user.id, brandId: brand.id });
+    const updatedUser = await attachBrandToUser({ userId: req.user.id, brandId: brand.id });
     res.status(200).json({ 
       user: updatedUser,
       brand

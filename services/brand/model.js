@@ -37,7 +37,6 @@ const brandSchema = new mongoose.Schema({
   },
   cities: {
     type: Array,
-    required: true,
   },
   products: {
     type: Array,

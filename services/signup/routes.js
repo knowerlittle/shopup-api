@@ -4,6 +4,6 @@ const { getInfo,
         createBrandAndAttachUser } = require(__root + 'services/signup/controller');
 
 router.get('/signup', getInfo);
-router.post('/signup/brand', createBrandAndAttachUser);
+router.post('/brand', createBrandAndAttachUser);
 
 module.exports = router;

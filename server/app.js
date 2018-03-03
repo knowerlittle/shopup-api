@@ -20,7 +20,6 @@ app.use(
   }),
 );
 
-
 app.use(
   expressJWT({
     secret: process.env.SECRET,
