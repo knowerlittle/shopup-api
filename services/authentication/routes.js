@@ -1,8 +1,8 @@
 const express = require('express');
-const { socialLogin, userSignin } = require(__root + 'services/authentication/controller');
 const router = express.Router();
+const { socialLogin, userSignin } = require(__root + 'services/authentication/controller');
 
 router.post('/auth', socialLogin);
-router.post('/signin', userSignin);
+router.get('/signin', userSignin);
 
 module.exports = router;

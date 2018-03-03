@@ -3,7 +3,6 @@ const processSocialLogin = require(__root + 'services/authentication/socialLogin
 const User = require(__root + 'services/user/model');
 const Brand = require(__root + 'services/brand/model');
 
-
 const socialLogin = async ({body: profile}, res) => {
   try {
     const user = await processSocialLogin(profile);
@@ -17,8 +16,6 @@ const socialLogin = async ({body: profile}, res) => {
     });
   }
 };
-
-
 
 const userSignin = async (req, res) => {
 	try {

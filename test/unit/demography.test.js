@@ -3,7 +3,7 @@ const app = require('server/app');
 const Demography = require(__root + 'services/demography/model');
 const dropDB = require(__root + 'test/utils/dropDB');
 
-const collection = 'demographics';
+const DEMOGRAPHICS = 'demographics';
 
 describe('Unit: Demographic', () => {
   test('has correct required fields', async done => {
@@ -12,8 +12,8 @@ describe('Unit: Demographic', () => {
     });
     await demography.save();
 
-    await dropDB(collection);
     await expect(demography.name).toEqual('hipsters');
+    await dropDB(DEMOGRAPHICS);
     await done();
   });
 });

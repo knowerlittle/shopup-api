@@ -20,6 +20,7 @@ app.use(
   }),
 );
 
+
 app.use(
   expressJWT({
     secret: process.env.SECRET,
@@ -31,8 +32,8 @@ app.use(
   }),
 );
 
-
 app.use(...routes);
+
 
 app.use(function(err, req, res, next) {
   if (err.name === 'UnauthorizedError') {

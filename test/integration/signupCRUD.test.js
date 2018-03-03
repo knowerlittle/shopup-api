@@ -4,7 +4,7 @@ const Category = require(__root + 'services/category/model');
 const Demographic = require(__root + 'services/demography/model');
 const Brand = require(__root + 'services/brand/model');
 const User = require(__root + 'services/user/model');
-const createToken = require(__root + 'test/utils/createToken');
+const createToken = require(__root + 'services/authentication/createToken');
 const dropDB = require(__root + 'test/utils/dropDB');
 const category1 = require(__root + 'test/fixtures/category1');
 const category2 = require(__root + 'test/fixtures/category2');
@@ -34,10 +34,10 @@ describe('Integration: Signup', () => {
 
     const responseBody = await response.body;
 
-    await dropDB(CATEGORIES);
-    await dropDB(DEMOGRAPHICS);
     await expect(responseBody.categories.length).toEqual(2);
     await expect(responseBody.demographics.length).toEqual(2);
+    await dropDB(CATEGORIES);
+    await dropDB(DEMOGRAPHICS);
     await done();
   });
 
@@ -57,14 +57,14 @@ describe('Integration: Signup', () => {
 
     const { user : responseUser, brand : responseBrand } = response.body;
 
-    await dropDB(USERS);
-    await dropDB(BRANDS);
     await expect(responseUser.brand.id).toEqual(responseBrand.id);
     await expect(responseBrand.users.id).toEqual(responseUser.id);
+    await dropDB(USERS);
+    await dropDB(BRANDS);
     await done();
   });
 
-  test('POST /signin : if a user has a brand, it returns the user, the brand and correct signin type', async done => {
+  test('GET /signin : if a user has a brand, it returns the user, the brand and correct signin type', async done => {
     const user = await new User({
       givenName: 'test2',
       email: 'test2@test.com',
@@ -80,20 +80,20 @@ describe('Integration: Signup', () => {
     const token = await createToken(user);
 
     const response = await request(app)
-      .post('/signin')
+      .get('/signin')
       .set('Authorization', 'Bearer ' + token);
-
+    
     const { user : responseUser, brand : responseBrand, type } = response.body;
 
-    await dropDB(USERS);
-    await dropDB(BRANDS);
     await expect(responseUser.brand.id).toEqual(responseBrand.id);
     await expect(responseBrand.users.id).toEqual(responseUser.id);
     await expect(type).toEqual('brand');
+    await dropDB(USERS);
+    await dropDB(BRANDS);
     await done();
   });
 
-  test('POST /signin : if a user does not have either a brand or space attached it returns the user with type new', async done => {
+  test('GET /signin : if a user does not have either a brand or space attached it returns the user with type new', async done => {
     const user = await new User({
       givenName: 'test2',
       email: 'test2@test.com',
@@ -103,14 +103,14 @@ describe('Integration: Signup', () => {
     const token = await createToken(user);
 
     const response = await request(app)
-      .post('/signin')
+      .get('/signin')
       .set('Authorization', 'Bearer ' + token);
 
     const { user : { _id : responseUserId }, type } = response.body;
 
-    await dropDB(USERS);
     await expect(responseUserId).toEqual(user.id);
     await expect(type).toEqual('new');
+    await dropDB(USERS);
     await done();
   })
 

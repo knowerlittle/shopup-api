@@ -6,7 +6,7 @@ const TOKEN_EXPIRY = '1h';
 const createToken = async (user) => {
   return jwt.sign(
     {
-      data: user._id,
+      id: user._id,
     },
     process.env.SECRET,
     {
