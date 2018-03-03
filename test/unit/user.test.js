@@ -10,8 +10,8 @@ describe('Unit: User', () => {
     const user = await new User({email: 'testemail@email.com'});
     await user.save();
 
-    await dropDB(USERS);
     await expect(user.email).toEqual('testemail@email.com');
+    await dropDB(USERS);
     await done();
   });
 });

@@ -9,7 +9,6 @@ const collection = 'users';
 
 describe('Integration: User', () => {
   test('GET /user/:id : with JWT token should return correct user', async done => {
-    const brand
     const user = await new User({
         givenName: 'test1',
         email: 'test1@test.com',

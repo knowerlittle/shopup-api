@@ -8,11 +8,11 @@ const socialLogin = async ({body: profile}, res) => {
   try {
     const user = await processSocialLogin(profile);
     const token = await createToken(user);
-    res.status(200).json({
+    return res.status(200).json({
       token: token
     });
   } catch (err) {
-    res.status(404).json({
+    return res.status(404).json({
       message: err
     });
   }
@@ -33,14 +33,14 @@ const userSignin = async (req, res) => {
     }
     if (user.space) {
       // return findSpaceWithUser(user);
-      console.log('narp');
+      return console.log('narp');
     }
     return res.status(200).json({
       user,
       type: 'new',
     })
 	} catch (err) {
-    res.status(404).json(err)
+    return res.status(404).json(err)
   }
 }
 
