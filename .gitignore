@@ -31,3 +31,6 @@ npm-debug.log
 
 # enviroment 
 .env
+
+# Seeder file for DB address
+seed.json
