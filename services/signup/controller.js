@@ -20,7 +20,7 @@ const getInfo = async (req, res) => {
 
 const attachBrandToUser = async ({ userId, brandId }) => {
   const user = await User.findById(userId).exec();
-  user.set({ brand: brandId });
+  await user.set({ brand: brandId });
   await user.save();
   return user;
 };
