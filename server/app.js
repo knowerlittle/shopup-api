@@ -25,15 +25,14 @@ app.use(
     secret: process.env.SECRET,
   }).unless({
     path: [
-      {
-        url: new RegExp('/auth', 'i'),
-      },
+      '/auth',
+      '/signup',
     ],
   }),
 );
 
-
 app.use(...routes);
+
 
 app.use(function(err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
