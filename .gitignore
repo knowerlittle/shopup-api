@@ -34,3 +34,7 @@ npm-debug.log
 
 # Seeder file for DB address
 seed.json
+
+package-lock.json
+
+yarn.lock
