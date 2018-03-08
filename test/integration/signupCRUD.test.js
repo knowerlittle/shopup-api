@@ -7,6 +7,7 @@ const User = require(__root + 'services/user/model');
 const createToken = require(__root + 'services/authentication/createToken');
 const dropDB = require(__root + 'test/utils/dropDB');
 const table = require(__root + 'test/utils/dbTables');
+const createUserWithToken = require(__root + 'test/utils/createUserWithToken');
 const category1 = require(__root + 'test/fixtures/category1');
 const category2 = require(__root + 'test/fixtures/category2');
 const demography1 = require(__root + 'test/fixtures/demography1');
@@ -38,13 +39,7 @@ describe('Integration: Signup', () => {
   });
 
   test('POST /brand : creates a brand; attaches user Id to brand; attaches brand Id to user; returns updated user and brand', async done => {
-    const user = await new User({
-      givenName: 'test1',
-      email: 'test1@test.com',
-    });
-    await user.save();
-
-    const token = await createToken(user);
+    const { user, token } = await createUserWithToken()
 
     const response = await request(app)
       .post('/brand')
@@ -61,19 +56,13 @@ describe('Integration: Signup', () => {
   });
 
   test('GET /signin : if a user has a brand, it returns the user, the brand and correct signin type', async done => {
-    const user = await new User({
-      givenName: 'test2',
-      email: 'test2@test.com',
-    });
-    await user.save();
+    const { user, token } = await createUserWithToken();
     const brandInfoWithUserId = Object.assign({}, brand2, { users: user.id });
     
     const brand = await new Brand(brandInfoWithUserId);
     await brand.save();
     user.set({ brand: brand.id });
     await user.save();
-
-    const token = await createToken(user);
 
     const response = await request(app)
       .get('/signin')
@@ -90,13 +79,7 @@ describe('Integration: Signup', () => {
   });
 
   test('GET /signin : if a user does not have either a brand or space attached it returns the user with type new', async done => {
-    const user = await new User({
-      givenName: 'test2',
-      email: 'test2@test.com',
-    });
-    await user.save();
-    
-    const token = await createToken(user);
+    const { user, token } = await createUserWithToken();;
 
     const response = await request(app)
       .get('/signin')
