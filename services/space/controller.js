@@ -13,6 +13,17 @@ const getAll = async (req, res) => {
   }
 };
 
+const findById = async (req, res) => {
+  try {
+    const space = await Space.findById(req.params.id).exec();
+    res.status(200)
+      .json(space)
+  } catch (err) {
+    res.status(400).json(errorResponse(err));
+  }
+};
+
 module.exports = {
   getAll,
+  findById,
 }

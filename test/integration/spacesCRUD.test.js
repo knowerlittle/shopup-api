@@ -29,5 +29,25 @@ describe('Integration: Space', () => {
     await expect(spaces[1]["_id"]).toEqual(spaceB.id);
     await done();
   });
+
+  test('GET /spaces:id : returns requested space', async done => {
+    const spaceA = await new Space(space1);
+    const spaceB = await new Space(space2);
+    await spaceA.save();
+    await spaceB.save();
+
+    const { user, token } = await createUserWithToken();
+
+    const response = await request(app)
+      .get(`/spaces/${spaceA.id}`)
+      .set('Authorization', 'Bearer ' + token);
+
+    const space = response.body;
+    await dropDB(table.SPACES);
+    await dropDB(table.USERS);
+    // await expect(space["_id"]).toEqual(spaceA.id);
+    await expect(space.name).toEqual('test space');
+    await done();
+  });
 });
 
