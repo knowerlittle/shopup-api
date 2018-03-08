@@ -4,9 +4,7 @@ const dropDB = require(__root + 'test/utils/dropDB');
 const Brand = require(__root + 'services/brand/model');
 const User = require(__root + 'services/user/model');
 const brand1 = require(__root + 'test/fixtures/brand1');
-
-const BRANDS = 'brands';
-const USERS = 'users';
+const table = require(__root + 'test/utils/dbTables');
 
 describe('Unit: Brand', () => {
   test('has corret required fields', async done => {
@@ -27,8 +25,8 @@ describe('Unit: Brand', () => {
     await expect(brand.categories.length).toEqual(3);
     await expect(brand.demographics.length).toEqual(3);
     await expect(brand.cities.length).toEqual(2);
-    await dropDB(BRANDS);
-    await dropDB(USERS);
+    await dropDB(table.BRANDS);
+    await dropDB(table.USERS);
     await done();
   });
 });

@@ -4,8 +4,7 @@ const User = require(__root + 'services/user/model');
 const Brand = require(__root + 'services/brand/model');
 const createToken = require(__root + 'services/authentication/createToken');
 const dropDB = require(__root + 'test/utils/dropDB');
-
-const USERS = 'users';
+const table = require(__root + 'test/utils/dbTables');
 
 describe('Integration: User', () => {
   test('GET /user/:id : with JWT token should return correct user', async done => {
@@ -22,7 +21,7 @@ describe('Integration: User', () => {
       .set('Authorization', 'Bearer ' + token);
 
     await expect(JSON.parse(response.text)["_id"]).toBe(user.id);
-    await dropDB(USERS);
+    await dropDB(table.USERS);
     await done();
   });
 
@@ -37,7 +36,7 @@ describe('Integration: User', () => {
       .get(`/user/${user.id}`)
 
     await expect(response.statusCode).toBe(401);
-    await dropDB(USERS);
+    await dropDB(table.USERS);
     await done();
   });
 });

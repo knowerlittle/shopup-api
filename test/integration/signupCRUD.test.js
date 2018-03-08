@@ -6,17 +6,14 @@ const Brand = require(__root + 'services/brand/model');
 const User = require(__root + 'services/user/model');
 const createToken = require(__root + 'services/authentication/createToken');
 const dropDB = require(__root + 'test/utils/dropDB');
+const table = require(__root + 'test/utils/dbTables');
+const createUserWithToken = require(__root + 'test/utils/createUserWithToken');
 const category1 = require(__root + 'test/fixtures/category1');
 const category2 = require(__root + 'test/fixtures/category2');
 const demography1 = require(__root + 'test/fixtures/demography1');
 const demography2 = require(__root + 'test/fixtures/demography2');
 const brand1 = require(__root + 'test/fixtures/brand1')
 const brand2 = require(__root + 'test/fixtures/brand2')
-
-const CATEGORIES = 'categories';
-const DEMOGRAPHICS = 'demographics';
-const USERS = 'users';
-const BRANDS = 'brands';
 
 describe('Integration: Signup', () => {
   test('GET /signup : returns both category and demographics for use in the signup process', async done => {
@@ -36,19 +33,13 @@ describe('Integration: Signup', () => {
 
     await expect(responseBody.categories.length).toEqual(2);
     await expect(responseBody.demographics.length).toEqual(2);
-    await dropDB(CATEGORIES);
-    await dropDB(DEMOGRAPHICS);
+    await dropDB(table.CATEGORIES);
+    await dropDB(table.DEMOGRAPHICS);
     await done();
   });
 
   test('POST /brand : creates a brand; attaches user Id to brand; attaches brand Id to user; returns updated user and brand', async done => {
-    const user = await new User({
-      givenName: 'test1',
-      email: 'test1@test.com',
-    });
-    await user.save();
-
-    const token = await createToken(user);
+    const { user, token } = await createUserWithToken()
 
     const response = await request(app)
       .post('/brand')
@@ -59,25 +50,19 @@ describe('Integration: Signup', () => {
 
     await expect(responseUser.brand.id).toEqual(responseBrand.id);
     await expect(responseBrand.users.id).toEqual(responseUser.id);
-    await dropDB(USERS);
-    await dropDB(BRANDS);
+    await dropDB(table.USERS);
+    await dropDB(table.BRANDS);
     await done();
   });
 
   test('GET /signin : if a user has a brand, it returns the user, the brand and correct signin type', async done => {
-    const user = await new User({
-      givenName: 'test2',
-      email: 'test2@test.com',
-    });
-    await user.save();
+    const { user, token } = await createUserWithToken();
     const brandInfoWithUserId = Object.assign({}, brand2, { users: user.id });
     
     const brand = await new Brand(brandInfoWithUserId);
     await brand.save();
     user.set({ brand: brand.id });
     await user.save();
-
-    const token = await createToken(user);
 
     const response = await request(app)
       .get('/signin')
@@ -88,19 +73,13 @@ describe('Integration: Signup', () => {
     await expect(responseUser.brand.id).toEqual(responseBrand.id);
     await expect(responseBrand.users.id).toEqual(responseUser.id);
     await expect(type).toEqual('brand');
-    await dropDB(USERS);
-    await dropDB(BRANDS);
+    await dropDB(table.USERS);
+    await dropDB(table.BRANDS);
     await done();
   });
 
   test('GET /signin : if a user does not have either a brand or space attached it returns the user with type new', async done => {
-    const user = await new User({
-      givenName: 'test2',
-      email: 'test2@test.com',
-    });
-    await user.save();
-    
-    const token = await createToken(user);
+    const { user, token } = await createUserWithToken();;
 
     const response = await request(app)
       .get('/signin')
@@ -110,7 +89,7 @@ describe('Integration: Signup', () => {
 
     await expect(responseUserId).toEqual(user.id);
     await expect(type).toEqual('new');
-    await dropDB(USERS);
+    await dropDB(table.USERS);
     await done();
   })
 

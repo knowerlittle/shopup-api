@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const config = require(__root + 'config/config');
 
-const TOKEN_EXPIRY = '1h';
+const TOKEN_EXPIRY = '6h';
 
 const createToken = async (user) => {
   return jwt.sign(
