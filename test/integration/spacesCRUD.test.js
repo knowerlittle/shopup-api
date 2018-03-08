@@ -12,16 +12,21 @@ const createUserWithToken = require(__root + 'test/utils/createUserWithToken');
 describe('Integration: Space', () => {
   test('GET /spaces : returns all spaces', async done => {
     const spaceA = await new Space(space1);
-    const spaceB = await new Space(space1);
+    const spaceB = await new Space(space2);
     await spaceA.save();
     await spaceB.save();
 
     const { user, token } = await createUserWithToken();
 
-    // const response = await request(app)
-    //   .get('/spaces');
+    const response = await request(app)
+      .get('/spaces')
+      .set('Authorization', 'Bearer ' + token);
+
+    const { spaces } = response.body;
     await dropDB(table.SPACES);
     await dropDB(table.USERS);
+    await expect(spaces[0]["_id"]).toEqual(spaceA.id);
+    await expect(spaces[1]["_id"]).toEqual(spaceB.id);
     await done();
   });
 });
