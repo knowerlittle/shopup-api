@@ -1,0 +1,32 @@
+[
+  {
+    "name:": "Coffee Junction",
+    "description": "Best coffee place in town",
+    "address": "147 Shoreditch High Street, E1 6JE",
+    "video": "https://www.thinglink.com/mediacard/975040659507380227?autoplay=0&autorotate=0&displaytitle=1&rel=1",
+    "image": {
+      "shopFrontA": "assets/img/demo/shopfront1.jpg",
+      "shopFrontB": "assets/img/demo/shopfront2.jpg"
+    }
+  },
+  {
+    "name": "Secret Gallery",
+    "description": "Secret Gallery in the East",
+    "address": "50 Commerical Rd, E1 6LT",
+    "video": "https://www.thinglink.com/mediacard/984816745229320195?autoplay=0&autorotate=0&displaytitle=1&rel=1",
+    "image": {
+      "shopFrontA": "assets/img/demo/shopfront1.jpg",
+      "shopFrontB": "assets/img/demo/shopfront2.jpg"
+    }
+  },
+  {
+    "name": "Oval Space",
+    "description": "Open air multi function venue",
+    "address": "29-32 The Oval, E2 9DT",
+    "video": "https://www.thinglink.com/mediacard/984816745229320195?autoplay=0&autorotate=0&displaytitle=1&rel=1",
+    "image": {
+      "shopFrontA": "assets/img/demo/shopfront1.jpg",
+      "shopFrontB": "assets/img/demo/shopfront2.jpg"
+    }
+  }
+]

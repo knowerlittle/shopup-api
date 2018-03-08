@@ -56,6 +56,12 @@ const spaceSchema = new mongoose.Schema({
   images: {
     type: Object,
   },
+  location: {
+    type: Object,
+  },
+  address: {
+    type: String,
+  },
 }, {
   timestamps: true,
 });
