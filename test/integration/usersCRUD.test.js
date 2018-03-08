@@ -6,8 +6,6 @@ const createToken = require(__root + 'services/authentication/createToken');
 const dropDB = require(__root + 'test/utils/dropDB');
 const table = require(__root + 'test/utils/dbTables');
 
-const USERS = 'users';
-
 describe('Integration: User', () => {
   test('GET /user/:id : with JWT token should return correct user', async done => {
     const user = await new User({

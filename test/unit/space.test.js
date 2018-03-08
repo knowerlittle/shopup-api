@@ -4,9 +4,7 @@ const dropDB = require(__root + 'test/utils/dropDB');
 const Space = require(__root + 'services/space/model');
 const User = require(__root + 'services/user/model');
 const space1 = require(__root + 'test/fixtures/space1');
-
-const SPACES = 'spaces';
-const USERS = 'users';
+const table = require(__root + 'test/utils/dbTables');
 
 describe('Unit: Space', () => {
   test('has correct required fields', async done => {
@@ -27,8 +25,8 @@ describe('Unit: Space', () => {
     await expect(space.categories.length).toEqual(3);
     await expect(space.demographics.length).toEqual(3);
     await expect(space.cities.length).toEqual(2);
-    await dropDB(SPACES);
-    await dropDB(USERS);
+    await dropDB(table.SPACES);
+    await dropDB(table.USERS);
     await done();
   });
 });
