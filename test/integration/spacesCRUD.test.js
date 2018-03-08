@@ -43,9 +43,10 @@ describe('Integration: Space', () => {
       .set('Authorization', 'Bearer ' + token);
 
     const space = response.body;
+    
     await dropDB(table.SPACES);
     await dropDB(table.USERS);
-    await expect(space.id).toEqual(spaceA.id);
+    await expect(space["_id"]).toEqual(spaceA.id);
     await expect(space.name).toEqual('test space');
     await done();
   });
