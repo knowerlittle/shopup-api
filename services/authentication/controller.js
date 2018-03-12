@@ -19,6 +19,7 @@ const socialLogin = async ({body: profile}, res) => {
 
 const userSignin = async (req, res) => {
 	try {
+    console.log('user', req.user.id);
     const user = await User.findById(req.user.id).exec();
     if (user.brand) {
       const brand = await Brand.findById(user.brand).exec();
