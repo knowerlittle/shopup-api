@@ -2,5 +2,3 @@
 
 Yaml config
 configed
-
-Dangerous
