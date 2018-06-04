@@ -1,8 +1,8 @@
 const CATEGORIES = 'categories';
 const DEMOGRAPHICS = 'demographics';
 const USERS = 'users';
-const BRANDS = 'brands'
-const SPACES= 'spaces'
+const BRANDS = 'brands';
+const SPACES= 'spaces';
 
 module.exports = {
   CATEGORIES,
@@ -10,4 +10,4 @@ module.exports = {
   USERS,
   BRANDS,
   SPACES,
-}
+};

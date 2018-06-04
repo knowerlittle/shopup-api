@@ -1,14 +1,12 @@
-const request = require('supertest');
 const app = require('server/app');
-const Category = require(__root + 'services/category/model');
-const Demographic = require(__root + 'services/demography/model');
-const Brand = require(__root + 'services/brand/model');
-const User = require(__root + 'services/user/model');
-const createToken = require(__root + 'services/authentication/createToken');
-const dropDB = require(__root + 'test/utils/dropDB');
-const table = require(__root + 'test/utils/dbTables');
-const createUserWithToken = require(__root + 'test/utils/createUserWithToken');
-const mock = require('test/fixtures');
+const { request, dropDB, table, createUserWithToken, createToken, mock,
+  model: { 
+    Category, 
+    Demographic, 
+    Brand 
+  },
+} = require(__root + 'test/utils');
+
 
 describe('Integration: Signup', () => {
   test('GET /signup : returns both category and demographics for use in the signup process', async () => {
