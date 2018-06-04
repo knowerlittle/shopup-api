@@ -8,22 +8,22 @@ const dropDB = require(__root + 'test/utils/dropDB');
 const USERS = 'users';
 
 describe('Integration: Social Authentication', () => {
-  test('POST /auth : if no user is present it creates a new user with the Social Provider id attached, and returns JWT Token', async done => {
+  test('POST /auth : if no user is present it creates a new user with the Social Provider id attached, and returns JWT Token', async () => {
     const response = await request(app)
       .post('/auth')
       .send(mockFacebookUser)
 
-    const responseToken = await JSON.parse(response.text)["token"];
+    responseToken = JSON.parse(response.text)["token"];
     const userArray = await User.find({ givenName: mockFacebookUser.firstName });
-    const user = await userArray[0];
+    user = userArray[0];
 
-    await expect(responseToken).toBeTruthy()
-    await expect(mockFacebookUser.id).toEqual(user.facebook.id);
+    expect(responseToken).toBeTruthy();
+    console.log('hi', user);
+    expect(mockFacebookUser.id).toEqual(user.facebook.id);
     await dropDB(USERS);
-    await done();
   });
 
-  test('POST /auth : if a user with the same Social Provider id exists it returns the JWT Token', async done => {
+  test('POST /auth : if a user with the same Social Provider id exists it returns the JWT Token', async () => {
     await new User({
       email: mockFacebookUser.email,
       givenName: mockFacebookUser.givenName,
@@ -35,14 +35,13 @@ describe('Integration: Social Authentication', () => {
     const response = await request(app)
       .post('/auth')
       .send(mockFacebookUser);
-    const responseToken = await JSON.parse(response.text)["token"];
+    const responseToken = JSON.parse(response.text)["token"];
 
-    await expect(responseToken).toBeTruthy();
+    expect(responseToken).toBeTruthy();
     await dropDB(USERS);
-    await done();
   });
 
-  test('POST /auth : if a user exists with a Facebook id and signs in with Google, it will attach the Google id', async done => {
+  test('POST /auth : if a user exists with a Facebook id and signs in with Google, it will attach the Google id', async () => {
     await new User({
       email: mockFacebookUser.email,
       givenName: mockFacebookUser.firstName,
@@ -56,14 +55,13 @@ describe('Integration: Social Authentication', () => {
       .send(mockGoogleUser); 
 
     const userArray = await User.find({ givenName: mockFacebookUser.firstName });
-    const user = await userArray[0];
+    const user = userArray[0];
 
-    await expect(mockGoogleUser.id).toEqual(user.google.id);
+    expect(mockGoogleUser.id).toEqual(user.google.id);
     await dropDB(USERS);
-    await done();
   });
 
-  test('POST /auth : if a user exists with a Google id and signs in with Facebook, it will attach the Facebook id', async done => {
+  test('POST /auth : if a user exists with a Google id and signs in with Facebook, it will attach the Facebook id', async () => {
     await new User({
       email: mockGoogleUser.email,
       givenName: mockGoogleUser.firstName,
@@ -77,10 +75,9 @@ describe('Integration: Social Authentication', () => {
       .send(mockFacebookUser); 
 
     const userArray = await User.find({ givenName: mockGoogleUser.firstName });
-    const user = await userArray[0];
+    const user = userArray[0];
 
-    await expect(mockFacebookUser.id).toEqual(user.facebook.id);
+    expect(mockFacebookUser.id).toEqual(user.facebook.id);
     await dropDB(USERS);
-    await done();
   });
 });
