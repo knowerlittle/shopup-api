@@ -56,8 +56,6 @@ describe('Integration: Signup', () => {
       .get('/signin')
       .set('Authorization', 'Bearer ' + token);
 
-    console.log('rbody', response.body);
-    
     const { user : responseUser, brand : responseBrand, type } = response.body;
 
     expect(responseUser.brand.id).toEqual(responseBrand.id);
@@ -67,20 +65,19 @@ describe('Integration: Signup', () => {
     await dropDB(table.BRANDS);
   });
 
-  // test('GET /signin : if a user does not have either a brand or space attached it returns the user with type new', async done => {
-  //   const { user, token } = await createUserWithToken();;
+  test('GET /signin : if a user does not have either a brand or space attached it returns the user with type new', async () => {
+    const { user, token } = await createUserWithToken();
 
-  //   const response = await request(app)
-  //     .get('/signin')
-  //     .set('Authorization', 'Bearer ' + token);
+    const response = await request(app)
+      .get('/signin')
+      .set('Authorization', 'Bearer ' + token);
 
-  //   const { user : { _id : responseUserId }, type } = response.body;
+    const { user : { _id : responseUserId }, type } = response.body;
 
-  //   await expect(responseUserId).toEqual(user.id);
-  //   await expect(type).toEqual('new');
-  //   await dropDB(table.USERS);
-  //   await done();
-  // });
+    expect(responseUserId).toEqual(user.id);
+    expect(type).toEqual('new');
+    await dropDB(table.USERS);
+  });
 
   // test('createToken', async done => {
   //   user = await new User({
