@@ -1,8 +1,8 @@
 const mockGoogleUser = {
   id: '22222',
   email: 'user@social.com',
-  firstName: 'Test',
-  lastName: 'Person',
+  givenName: 'Test',
+  familyName: 'Person',
   name: 'Test Person',
   provider: 'google',
 };

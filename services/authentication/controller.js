@@ -1,10 +1,11 @@
 const createToken = require(__root + 'services/authentication/createToken');
-const processSocialLogin = require(__root + 'services/authentication/socialLogin.js');
+const processSocialLogin = require(__root + 'services/authentication/processSocialLogin.js');
 const User = require(__root + 'services/user/model');
 const Brand = require(__root + 'services/brand/model');
 
 const socialLogin = async ({body: profile}, res) => {
   try {
+    console.log('here', profile);
     const user = await processSocialLogin(profile);
     const token = await createToken(user);
     return res.status(200).json({

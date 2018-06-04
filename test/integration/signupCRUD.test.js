@@ -16,7 +16,7 @@ const brand1 = require(__root + 'test/fixtures/brand1')
 const brand2 = require(__root + 'test/fixtures/brand2')
 
 describe('Integration: Signup', () => {
-  test('GET /signup : returns both category and demographics for use in the signup process', async done => {
+  test('GET /signup : returns both category and demographics for use in the signup process', async () => {
     const cat1 = await new Category(category1);
     const cat2 = await new Category(category2); 
     const demo1 = await new Demographic(demography1); 
@@ -29,13 +29,12 @@ describe('Integration: Signup', () => {
     const response = await request(app)
       .get('/signup');
 
-    const responseBody = await response.body;
+    const responseBody = response.body;
 
-    await expect(responseBody.categories.length).toEqual(2);
-    await expect(responseBody.demographics.length).toEqual(2);
+    expect(responseBody.categories.length).toEqual(2);
+    expect(responseBody.demographics.length).toEqual(2);
     await dropDB(table.CATEGORIES);
     await dropDB(table.DEMOGRAPHICS);
-    await done();
   });
 
   test('POST /brand : creates a brand; attaches user Id to brand; attaches brand Id to user; returns updated user and brand', async done => {
