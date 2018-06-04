@@ -38,34 +38,34 @@ describe('Integration: Signup', () => {
 
     const { user : responseUser, brand : responseBrand } = response.body;
 
-    await expect(responseUser.brand.id).toEqual(responseBrand.id);
-    await expect(responseBrand.users.id).toEqual(responseUser.id);
+    expect(responseUser.brand.id).toEqual(responseBrand.id);
+    expect(responseBrand.users.id).toEqual(responseUser.id);
     await dropDB(table.USERS);
     await dropDB(table.BRANDS);
   });
 
-  // test('GET /signin : if a user has a brand, it returns the user, the brand and correct signin type', async done => {
-  //   const { user, token } = await createUserWithToken();
-  //   const brandInfoWithUserId = Object.assign({}, brand2, { users: user.id });
+  test('GET /signin : if a user has a brand, it returns the user, the brand and correct signin type', async () => {
+    const { user, token } = await createUserWithToken();
+    const brandInfoWithUserId = Object.assign({}, mock.brand2, { users: user.id });
     
-  //   const brand = await new Brand(brandInfoWithUserId);
-  //   await brand.save();
-  //   user.set({ brand: brand.id });
-  //   await user.save();
+    const brand = await new Brand(brandInfoWithUserId).save();
+    user.set({ brand: brand.id });
+    await user.save();
 
-  //   const response = await request(app)
-  //     .get('/signin')
-  //     .set('Authorization', 'Bearer ' + token);
+    const response = await request(app)
+      .get('/signin')
+      .set('Authorization', 'Bearer ' + token);
+
+    console.log('rbody', response.body);
     
-  //   const { user : responseUser, brand : responseBrand, type } = response.body;
+    const { user : responseUser, brand : responseBrand, type } = response.body;
 
-  //   await expect(responseUser.brand.id).toEqual(responseBrand.id);
-  //   await expect(responseBrand.users.id).toEqual(responseUser.id);
-  //   await expect(type).toEqual('brand');
-  //   await dropDB(table.USERS);
-  //   await dropDB(table.BRANDS);
-  //   await done();
-  // });
+    expect(responseUser.brand.id).toEqual(responseBrand.id);
+    expect(responseBrand.users.id).toEqual(responseUser.id);
+    expect(type).toEqual('brand');
+    await dropDB(table.USERS);
+    await dropDB(table.BRANDS);
+  });
 
   // test('GET /signin : if a user does not have either a brand or space attached it returns the user with type new', async done => {
   //   const { user, token } = await createUserWithToken();;
