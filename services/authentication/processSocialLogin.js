@@ -5,7 +5,6 @@ const findUser = ({
   email, 
   provider 
 }) => {
-  console.log('narp', id, email, provider)
   return new Promise((resolve, reject) => {
     User.findOne(
       {
@@ -67,7 +66,6 @@ const attachSocialAccount = async ({ _id }, {id, provider}) => {
       new: true,
     },
   );
-  console.log('updated', updatedUser);
   return updatedUser;
 };
 

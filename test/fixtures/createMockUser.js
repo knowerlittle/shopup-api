@@ -24,7 +24,7 @@ const randomNumber = Math.floor(Math.random() * 1000) + 1;
 
 const generateRandom = (provider) => {
   return {
-    id: randomNumber,
+    id: `${randomNumber}`,
     email: casual.email,
     givenName,
     familyName,

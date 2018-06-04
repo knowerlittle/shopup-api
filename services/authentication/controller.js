@@ -5,7 +5,6 @@ const Brand = require(__root + 'services/brand/model');
 
 const socialLogin = async ({body: profile}, res) => {
   try {
-    console.log('here', profile);
     const user = await processSocialLogin(profile);
     const token = await createToken(user);
     return res.status(200).json({
@@ -20,7 +19,6 @@ const socialLogin = async ({body: profile}, res) => {
 
 const userSignin = async (req, res) => {
 	try {
-    console.log('user', req.user.id);
     const user = await User.findById(req.user.id).exec();
     if (user.brand) {
       const brand = await Brand.findById(user.brand).exec();

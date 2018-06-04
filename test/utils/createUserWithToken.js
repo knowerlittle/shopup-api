@@ -5,8 +5,7 @@ async function createUserWithToken () {
   const user = await new User({
     givenName: 'test1',
     email: 'test1@test.com',
-  });
-  await user.save();
+  }).save();
 
   const token = await createToken(user);
 
