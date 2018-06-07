@@ -9,7 +9,7 @@ const { request, dropDB, table, mock, createToken,
 describe('Integration: User', () => {
   test('GET /user/:id : with JWT token should return correct user', async () => {
     const user = await new User({
-        givenName: 'test1',
+        firstName: 'test1',
         email: 'test1@test.com',
     }).save();
 
@@ -25,7 +25,7 @@ describe('Integration: User', () => {
 
   test('GET /user/:id : without a JWT token be an Unauthorized Request', async () => {
     const user = await new User({
-        givenName: 'test2',
+        firstName: 'test2',
         email: 'test2@test.com',
     }).save();
 

@@ -9,7 +9,7 @@ const { dropDB, table, mock,
 describe('Unit: Space', () => {
   test('has correct required fields', async () => {
     const user = await new User({
-      givenName: 'testUesr',
+      firstName: 'testUesr',
       email: 'test@testing.com',
     }).save();
 

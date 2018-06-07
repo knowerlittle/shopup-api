@@ -33,13 +33,13 @@ const createUser = ({
   id, 
   email, 
   provider,
-  givenName, 
-  familyName }) =>
+  firstName, 
+  lastName }) =>
   new Promise((resolve, reject) => {
     const user = new User({
       email,
-      givenName,
-      familyName,
+      firstName,
+      lastName,
       [provider]: {
         id,
       },

@@ -9,7 +9,7 @@ const { request, dropDB, table, mock,
 describe('Unit: Brand', () => {
   test('has corret required fields', async () => {
     const user = await new User({
-      givenName: 'test2',
+      firstName: 'test2',
       email: 'test2@test.com',
     }).save();
 

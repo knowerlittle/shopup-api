@@ -3,8 +3,8 @@ const casual = require('casual');
 const facebookFixed = {
   id: '11111',
   email: 'user@social.com',
-  givenName: 'Test',
-  familyName: 'Person',
+  firstName: 'Test',
+  lastName: 'Person',
   name: 'Test Person',
   provider: 'facebook',
 };
@@ -12,23 +12,23 @@ const facebookFixed = {
 const googleFixed = {
   id: '22222',
   email: 'user@social.com',
-  givenName: 'Test',
-  familyName: 'Person',
+  firstName: 'Test',
+  lastName: 'Person',
   name: 'Test Person',
   provider: 'google',
 };
 
-const givenName = casual.first_name;
-const familyName = casual.last_name;
+const firstName = casual.first_name;
+const lastName = casual.last_name;
 const randomNumber = Math.floor(Math.random() * 1000) + 1;
 
 const generateRandom = (provider) => {
   return {
     id: `${randomNumber}`,
     email: casual.email,
-    givenName,
-    familyName,
-    name: `${givenName} ${familyName}`,
+    firstName,
+    lastName,
+    name: `${firstName} ${lastName}`,
     provider,
   }
 };

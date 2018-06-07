@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    givenName: {
+    firstName: {
         type: String
     },
-    familyName: {
+    lastName: {
         type: String
     },
     google: {

@@ -3,7 +3,7 @@ const User = require(__root + 'services/user/model');
 
 async function createUserWithToken () {
   const user = await new User({
-    givenName: 'test1',
+    firstName: 'test1',
     email: 'test1@test.com',
   }).save();
 

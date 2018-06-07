@@ -13,7 +13,7 @@ describe('Integration: Social Authentication', () => {
       .post('/auth')
       .send(mockFacebookUser)
     const responseToken = JSON.parse(response.text)["token"];
-    const userArray = await User.find({ givenName: mockFacebookUser.givenName });
+    const userArray = await User.find({ firstName: mockFacebookUser.firstName });
     const user = userArray[0];
 
     expect(responseToken).toBeTruthy();
@@ -25,8 +25,8 @@ describe('Integration: Social Authentication', () => {
     const mockFacebookUser = mock.createMockUser('facebook', 'random');
     const newUser = await new User({
       email: mockFacebookUser.email,
-      givenName: mockFacebookUser.givenName,
-      familyName: mockFacebookUser.familyName,
+      firstName: mockFacebookUser.firstName,
+      lastName: mockFacebookUser.lastName,
       facebook: {
         id: mockFacebookUser.id, 
       }
@@ -45,8 +45,8 @@ describe('Integration: Social Authentication', () => {
     const mockFacebookUser = mock.createMockUser('facebook', 'fixed');
     const newUser = await new User({
       email: mockFacebookUser.email,
-      givenName: mockFacebookUser.givenName,
-      familyName: mockFacebookUser.familyName,
+      firstName: mockFacebookUser.firstName,
+      lastName: mockFacebookUser.lastName,
       facebook: {
         id: mockFacebookUser.id, 
       }
@@ -56,7 +56,7 @@ describe('Integration: Social Authentication', () => {
     const response = await request(app)
       .post('/auth')
       .send(mockGoogleUser); 
-    const userArray = await User.find({ givenName: mockFacebookUser.givenName });
+    const userArray = await User.find({ firstName: mockFacebookUser.firstName });
     const user = userArray[0];
 
     expect(mockGoogleUser.id).toEqual(user.google.id);
@@ -68,8 +68,8 @@ describe('Integration: Social Authentication', () => {
     const mockGoogleUser = mock.createMockUser('google', 'fixed');
     const newUser = await new User({
       email: mockGoogleUser.email,
-      givenName: mockGoogleUser.givenName,
-      familyName: mockGoogleUser.familyName,
+      firstName: mockGoogleUser.firstName,
+      lastName: mockGoogleUser.lastName,
       google: {
         id: mockGoogleUser.id, 
       }
@@ -79,7 +79,7 @@ describe('Integration: Social Authentication', () => {
     const response = await request(app)
       .post('/auth')
       .send(mockFacebookUser); 
-    const userArray = await User.find({ givenName: mockGoogleUser.givenName });
+    const userArray = await User.find({ firstName: mockGoogleUser.firstName });
     const user = userArray[0];
 
     expect(mockFacebookUser.id).toEqual(user.facebook.id);
