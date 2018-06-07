@@ -1,10 +1,10 @@
 require('server/app');
 const createMockUser = require(__root + 'test/fixtures/createMockUser');
 
-describe('mockUser', () => {
+describe('Helper: createMockUser', () => {
   test('it returns a random facebook user by default', () => {
     const defaultResponse = createMockUser();
-    expect(typeof defaultResponse.id).toBe('number');
+    expect(typeof defaultResponse.id).toBe('string');
     expect(defaultResponse.provider).toEqual('facebook');
   });
 
@@ -16,7 +16,7 @@ describe('mockUser', () => {
 
   test('it returns a random facebook user (explicit)', () => {
     const facebookRandom = createMockUser('facebook', 'random');
-    expect(typeof facebookRandom.id).toBe('number');
+    expect(typeof facebookRandom.id).toBe('string');
     expect(facebookRandom.provider).toEqual('facebook');
   });
 
@@ -28,7 +28,7 @@ describe('mockUser', () => {
 
   test('it returns a random google user', () => {
     const googleRandom = createMockUser('google', 'random');
-    expect(typeof googleRandom.id).toBe('number');
+    expect(typeof googleRandom.id).toBe('string');
     expect(googleRandom.provider).toEqual('google');
   });
 

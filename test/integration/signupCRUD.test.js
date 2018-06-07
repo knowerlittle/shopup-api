@@ -12,8 +12,8 @@ describe('Integration: Signup', () => {
   test('GET /signup : returns both category and demographics for use in the signup process', async () => {
     await new Category(mock.category1).save();
     await new Category(mock.category2).save(); 
-    await new Demographic(mock.demography1).save(); 
-    await new Demographic(mock.demography2).save(); 
+    await new Demographic(mock.demographic1).save(); 
+    await new Demographic(mock.demographic2).save(); 
 
     const response = await request(app)
       .get('/signup');
