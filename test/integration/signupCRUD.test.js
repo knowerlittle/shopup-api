@@ -76,19 +76,4 @@ describe('Integration: Signup', () => {
     expect(type).toEqual('new');
     await dropDB(table.USERS);
   });
-
-  // test('createToken', async done => {
-  //   user = await new User({
-  //     _id: '5aa199696bd0515f8af36138',
-  //     givenName: 'Noah',
-  //     lastName: 'Pollock',
-  //     email: 'knowerlittle@gmail.com',
-  //   });
-  //   await user.save();
-  
-  //   const token = await createToken(user);
-    
-  //   console.log('u', user, 't', token);
-  //   await done();
-  // });
 });

@@ -1,6 +1,8 @@
 const app = require('server/app');
 const { request, dropDB, table, mock,
-  model: { User },
+  model: { 
+    User, 
+  },
 } = require(__root + 'test/utils');
 
 describe('Integration: Social Authentication', () => {
