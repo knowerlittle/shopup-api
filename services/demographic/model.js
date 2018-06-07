@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const demographySchema = new mongoose.Schema({
+const demographicSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -10,4 +10,4 @@ const demographySchema = new mongoose.Schema({
   timestamps: true
 });
 
-module.exports = mongoose.model('Demographic', demographySchema);
+module.exports = mongoose.model('Demographic', demographicSchema);

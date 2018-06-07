@@ -1,21 +1,16 @@
-const request = require('supertest');
 const app = require('server/app');
-const Category = require(__root + 'services/category/model');
-const dropDB = require(__root + 'test/utils/dropDB');
-
-const CATEGORIES  = 'categories';
+const { request, dropDB, table, mock,
+  model: {
+    Category,
+  },
+} = require(__root + 'test/utils');
 
 describe('Unit: Category', () => {
-  test('has correct required fields', async done => {
-    const category = await new Category({
-      name: 'test cat',
-      description: 'test category',
-    });
-    await category.save();
+  test('has correct required fields', async () => {
+    const category = await new Category(mock.category1).save();
 
-    await expect(category.name).toEqual('test cat');
-    await expect(category.description).toEqual('test category');
-    await dropDB(CATEGORIES);
-    await done();
+    expect(category.name).toEqual('cat1');
+    expect(category.description).toEqual('category 1');
+    await dropDB(table.CATEGORIES);
   });
 });

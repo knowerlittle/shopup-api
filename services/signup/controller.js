@@ -1,5 +1,5 @@
 const Category = require(__root + 'services/category/model');
-const Demography = require(__root + 'services/demography/model');
+const Demographic = require(__root + 'services/demographic/model');
 const User = require(__root + 'services/user/model');
 const Brand = require(__root + 'services/brand/model')
 const errorResponse = require(__root + 'services/utils/errorResponse');
@@ -7,7 +7,7 @@ const errorResponse = require(__root + 'services/utils/errorResponse');
 const getInfo = async (req, res) => {
   try {
     const categories = await Category.find({}).exec();
-    const demographics = await Demography.find({}).exec();
+    const demographics = await Demographic.find({}).exec();
     res.status(200)
       .json({
         categories,
